@@ -9,7 +9,7 @@ include_once dirname(__DIR__) . '/controller/PosicaoAtualController.class.php';
 include_once dirname(__DIR__) . '/controller/LocEspecificaController.class.php';
 
 header('Access-Control-Allow-Origin: *');
-header('Cache-Control: no-cache, must-revalidate');
+header( 'Cache-Control: no-cache' );
 
 if ($_POST['pesquisa'] != "locEspecifica") {
 
@@ -22,7 +22,7 @@ if ($_POST['pesquisa'] != "locEspecifica") {
     $posicaoAtualController = new PosicaoAtualController();
 
     if (!is_null($posicaoAtualController->getJsonResponse($lat, $long, $distance))) {
-      header('Content-type: application/json');
+      header('Content-type: application/json; charset="utf-8"');
       echo $posicaoAtualController->getJsonResponse($lat, $long, $distance);
     } else {
       echo 'NULL Response';
@@ -46,7 +46,7 @@ if ($_POST['pesquisa'] != "locEspecifica") {
 
     if (!is_null($locEspecificaController->getJsonResponse($cidade, $bairro, $rua))) {
       
-      header('Content-type: application/json');
+      header('Content-type: application/json; charset="utf-8"');
       echo $locEspecificaController->getJsonResponse($cidade, $bairro, $rua);
       
     } else {
