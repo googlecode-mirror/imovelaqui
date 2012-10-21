@@ -1,8 +1,8 @@
 <?php
 
 
-include_once dirname(__DIR__) . '/model/dao/ConnectionFactory.class.php';
-include_once dirname(__DIR__) . '/model/bi/PosicaoAtualBI.class.php';
+include_once dirname(__DIR__) . "/model/dao/ConnectionFactory.class.php";
+include_once dirname(__DIR__) . "/model/bi/PosicaoAtualBI.class.php";
 
 /**
  * This class is a link of the boundary tier and model tier.
@@ -23,7 +23,7 @@ class PosicaoAtualController {
     return $xmlResponse;
   }
   
-  public function getJSONResponse($lat, $long, $distance){
+  public function getJsonResponse($lat, $long, $distance){
     $this->connection = ConnectionFactory::getInstance()->createConnection(false);
     $posicaoAtualBI = new PosicaoAtualBI($this->connection);
     
@@ -32,6 +32,8 @@ class PosicaoAtualController {
     
     return $jsonResponse;
   }
+  
+  
 
 }
 

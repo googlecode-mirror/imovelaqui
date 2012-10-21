@@ -1,7 +1,8 @@
 <?php
 
-include_once dirname(__DIR__) . '/bi/GenericBI.class.php';
-include_once dirname(__DIR__) . '/dao/PosicaoAtualDAO.class.php';
+include_once dirname(__DIR__) . "/bi/GenericBI.class.php";
+include_once dirname(__DIR__) . "/dao/PosicaoAtualDAO.class.php";
+include_once dirname(__DIR__) . "/../util/ArrayHandler.class.php";
 
 /**
  * This class is business logic for fetch properties by actual position of the
@@ -71,25 +72,12 @@ class PosicaoAtualBI extends GenericBI {
     $rows = $posicaoAtualDAO->findByCordinatesAndDistance($lat, $long, $distance);
     
     if(!is_null($rows)){
-      return json_encode($this->arrayToUtf8($rows));
+      return json_encode(ArrayHandler::arrayToUtf8($rows));
     } else {
       return NULL;
     }
   }
   
-  public function arrayToUtf8($array){
-
-    $i = 1;
-    foreach ($array as $row){
-        $temp[$i]['imovel_tipo'] = utf8_encode($row['imovel_tipo']);
-        $temp[$i]['contrato_tipo'] = utf8_encode($row['contrato_tipo']);
-        $temp[$i]['bairro'] = utf8_encode($row['bairro']);
-        $temp[$i]['endereco'] = utf8_encode($row['endereco']);
-        $temp[$i]['numero'] = utf8_encode($row['numero']);   
-        $i++;
-    }
-    return $temp;
-  }
 }
 
 ?>
