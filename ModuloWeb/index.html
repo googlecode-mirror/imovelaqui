@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <fieldset>
+      <form method="post" action="boundary/ModuloWebBoundary.action.php">
+        <input type="hidden" id="posicaoAtual" name="pesquisa" value="test" />
+
+        <input type="hidden" id="latitude" name="latitude" value="-22.237233" />
+        <input type="hidden" id="longitude" name="longitude" value="-45.9544205" />
+        <input type="hidden" id="distancia" name="distancia" value="1" />
+
+        <input type="submit" value="Testar Posicao Atual" />
+
+      </form>
+    </fieldset>
+    <fieldset>
+      <form method="post" action="boundary/ModuloWebBoundary.action.php">
+        <input type="hidden" id="posicaoEspecifica" name="pesquisa" value="locEspecifica" />
+
+        <input type="text" id="cidade" name="cidade" />
+        <input type="text" id="bairro" name="bairro" />
+        <input type="text" id="rua" name="rua" />
+
+        <input type="submit" value="Testar locEspecifica" />
+
+      </form>
+    </fieldset>
+  </body>
+</html>
