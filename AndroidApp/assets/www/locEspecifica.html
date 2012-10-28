@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- JS/CSS required libs -->
+<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+<!-- <script type="text/javascript" src="js/cordova-2.0.0.js"></script> -->
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.2.0.min.js"></script>
+
+<style type="text/css">
+.loader {
+	display: none;
+}
+#listView{
+	display: none;
+}
+
+</style>
+
+</head>
+<body>
+
+	<!-- header -->
+	<div data-role="header" data-id="header1" data-position="fixed">
+		<h1>ImóvelAqui</h1>
+		<div data-role="navbar">
+			<ul>
+				<li><a data-transition="slidedown" href="index.html">Posicao
+						atual</a></li>
+				<li><a data-transition="slidedown" class="ui-btn-active ui-state-persist" href="locEspecifica.html">Localização
+						Específica</a></li>
+				<li><a data-transition="slidedown" href="preferenciais.html">Preferenciais</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /header -->
+
+
+
+	<!-- content -->
+	<div id="content" data-role="content">
+		<img src="images/ajax-loader.gif" class="loader" alt="loader" />
+		<div id="mainAccordion" data-role="collapsible-set">
+
+			<div id="frmSearch" data-role="collapsible" data-collapsed="false">
+				<h3>Pesquisar</h3>
+				<form action="#" method="post">
+					
+					<label for="cidade">Cidade:</label>
+    			<input type="text" name="cidade" id="cidade" value=""  />
+					
+					<label for="bairro">Bairro:</label>
+    			<input type="text" name="bairro" id="bairro" value=""  />
+    			
+    			<label for="rua">Rua:</label>
+    			<input type="text" name="rua" id="rua" value=""  />
+					
+					<button type="submit" id="pesquisar" data-theme="b" name="pesquisar" value="submit-value" onclick="loadRequest()">Pesquisar</button>
+				</form>
+			</div>
+
+			<!-- <div data-role="collapsible">
+				<h3>Filtrar</h3>
+				<p>//TODO: Implementar esta funcionalidade.</p>
+			</div>  -->
+			
+			<div id="result" data-role="collapsible">
+				<h3>Resultado</h3>
+				<ul id="listView" data-role="listview" data-inset="true" data-filter="true">
+					<li></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+	<!-- /content -->
+	<script type="text/javascript">
+		var actualPosition;
+
+		function loadRequest() {
+			$.ajax({
+						url : 'http://imovelaqui.co.cc/ModuloWeb/boundary/ModuloWebBoundary.action.php',
+						type : 'post',
+						data : {
+							pesquisa : 'locEspecifica',
+							cidade : $("#cidade").val(),
+							bairro : $("#bairro").val(),
+							rua : $("#rua").val()
+						},
+						dataType : 'json',
+						//This method called when ajax request is succeful.
+						success : function(jsonResponse) {
+							var listContainer = $('#listView');
+ 							listContainer.empty();
+							
+							var list = new Array();
+							var html = "";
+							
+							$.each(jsonResponse, function(i, objJsonResponse) {
+								list[i] = document.createElement('li');
+
+								html += "<a href='#'>";
+								html += objJsonResponse.imovel_tipo;
+								html += ": " + objJsonResponse.contrato_tipo;
+								html += " - " + objJsonResponse.endereco;
+								html += ", " + objJsonResponse.numero;
+								html += "</a>";
+								
+								$(listContainer).append($(list[i]).html($(html))).listview("refresh");
+								html = "";
+							});
+
+						},
+						//This method is called case request fail.
+						error:function(xhr,err){
+						    alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+						    alert("responseText: "+xhr.responseText);
+						},
+						//This method run before send ajax request.
+						beforeSend : function() {
+							$('.loader').css({
+								display : "block"
+							});
+						},
+						//This method run when complete ajax request.
+						complete : function() {
+							$('#frmSearch').trigger( "collapse" );
+							$('#mainAccordion').collapsibleset('refresh');
+							$('#result').trigger("expand");
+							$('.loader').css({
+								display : "none"
+							});
+							$('#listView').css({
+								display: "block"
+							});
+						}
+
+					});
+
+		}
+	
+	</script>
+</body>
+</html>
