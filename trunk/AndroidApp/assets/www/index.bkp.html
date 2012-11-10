@@ -8,6 +8,8 @@
 <script type="text/javascript" src="js/cordova-2.0.0.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/jquery.mobile-1.2.0.min.js"></script>
+<script type="text/javascript" src="js/Index.js"></script>
+
 <style type="text/css">
 .loader {
 	display: none;
@@ -42,7 +44,8 @@
 				<div id="frmSearch" data-role="collapsible" data-collapsed="false">
 					<h3>Pesquisar</h3>
 						<label for="distancia">Distancia em km:</label> <input type="range" name="distancia" id="distancia" value="5" min="1" max="10" />
-						<a data-transition="flip" data-role="button" id="btnPosicaoAtual" data-theme="b">Pesquisar</a>
+						<a href="#resultPage" data-transition="flip" data-role="button" id="pesquisar" data-theme="b"
+							name="pesquisar" onclick="loadRequestPosAtual()">Pesquisar</a>
 				</div>
 			
 			</div>
@@ -70,7 +73,6 @@
 
 			<!-- content -->
 		<div id="content_1" data-role="content">
-
 			<img src="images/ajax-loader.gif" class="loader" alt="loader" />
 			<div id="mainAccordion" data-role="collapsible-set">
 
@@ -84,7 +86,8 @@
 							for="rua">Rua:</label> <input type="text" name="rua" id="rua"
 							value="" />
 
-						<a data-transition="flip" data-role="button" id="btnLocEspecifica" data-theme="b">Pesquisar</a>
+						<a href="#resultPage" data-transition="flip" data-role="button" id="pesquisar" data-theme="b"
+							name="pesquisar" onclick="loadRequestPosEsp()">Pesquisar</a>
 					<!--</form>-->
 				</div>
 			</div>
@@ -111,6 +114,5 @@
 		</div>
 	</div>
 <!-- 	Fim da página de resultados -->
-<script type="text/javascript" src="js/Index.js"></script>
 </body>
 </html>
